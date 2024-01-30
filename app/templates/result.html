@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>CGPA Result - VIT Grade Improvement Calculator</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        body::after {
+            content: "";
+            opacity: 0.8;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            position: absolute;
+            z-index: -1;
+            background-image: url('https://images.pexels.com/photos/267885/pexels-photo-267885.jpeg');
+            background-size: cover;
+        }
+
+        .container {
+            max-width: 550px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #eeeeeea1;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+            text-align: center; /* Center-align content */
+        }
+
+        h1 {
+            color: #007BFF;
+            font-family: 'Roboto', sans-serif; /* Use the 'Roboto' font */
+            margin-bottom: 20px; /* Add some space below the title */
+        }
+
+        .result-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: left; /* Adjust text alignment for content within the result container */
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #007BFF;
+            font-weight: bold;
+        }
+
+        .footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            color: #fff;
+            font-size: 12px;
+            padding: 10px;
+            background-color: #343a40;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>CGPA Result - VIT Grade Improvement Calculator</h1>
+        {% if new_cgpa %}
+            <div class="result-container">
+                <p>Your new CGPA is: {{ new_cgpa }}</p>
+                <p>Summary of Input:</p>
+                <ul>
+                    <li>Current CGPA: {{ data['current_cgpa'] }}</li>
+                    <li>Total Credits Completed: {{ data['total_credits_completed'] }}</li>
+                    <li>Total Credits Required: {{ data['total_credits_required'] }}</li>
+                    <li>Number of Courses: {{ data['num_courses'] }}</li>
+                </ul>
+                <a href="/">Back to Calculator</a>
+            </div>
+        {% else %}
+            <p>No input data available.</p>
+        {% endif %}
+    </div>
+    <div class="footer">
+        Created by Anush Dubey
+    </div>
+</body>
+</html>

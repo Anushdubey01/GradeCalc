@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>VIT Grade Improvement Calculator</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        body::after {
+            content: "";
+            opacity: 0.8;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            position: absolute;
+            z-index: -1;
+            background-image: url('https://images.pexels.com/photos/267885/pexels-photo-267885.jpeg');
+            background-size: cover;
+        }
+        
+
+        .container {
+            max-width: 550px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #eeeeeea1;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+            text-align: center; /* Center-align content */
+        }
+
+        h1 {
+            color: #007BFF;
+            font-family: 'Roboto', sans-serif; /* Use the 'Roboto' font */
+            margin-bottom: 20px; /* Add some space below the title */
+        }
+
+        form {
+            padding: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        input[type="text"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            background-color: #007BFF;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            color: #fff;
+            font-size: 12px;
+            padding: 10px;
+            background-color: #343a40;
+        }
+
+        .result-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .error-message {
+            color: red;
+            font-weight: bold;
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 600px) {
+            .container {
+                max-width: 100%;
+                margin-top: 20px;
+            }
+
+            input[type="text"] {
+                width: 100%;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <script>
+        function addCourse() {
+            var numCourses = document.getElementById('num_courses').value;
+            var courseDetails = document.getElementById('course_details');
+            courseDetails.innerHTML = '';
+            for (var i = 0; i < numCourses; i++) {
+                var gradeLabel = document.createElement('label');
+                gradeLabel.textContent = 'Grade for Course ' + (i + 1) + ':';
+                courseDetails.appendChild(gradeLabel);
+
+                var gradeInput = document.createElement('input');
+                gradeInput.type = 'text';
+                gradeInput.name = 'grade_' + (i + 1);
+                courseDetails.appendChild(gradeInput);
+
+                var creditsLabel = document.createElement('label');
+                creditsLabel.textContent = 'Credits for Course ' + (i + 1) + ':';
+                courseDetails.appendChild(creditsLabel);
+
+                var creditsInput = document.createElement('input');
+                creditsInput.type = 'text';
+                creditsInput.name = 'credits_' + (i + 1);
+                courseDetails.appendChild(creditsInput);
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>VIT Grade Improvement Calculator</h1>
+        <form action="/calculate_cgpa" method="post">
+            <label for="current_cgpa">Current CGPA:</label><br>
+            <input type="text" id="current_cgpa" name="current_cgpa" required><br>
+            <label for="total_credits_completed">Total Credits Completed:</label><br>
+            <input type="text" id="total_credits_completed" name="total_credits_completed" required><br>
+            <label for="total_credits_required">Total Credits Required:</label><br>
+            <input type="text" id="total_credits_required" name="total_credits_required" required><br>
+            <label for="num_courses">Number of Courses:</label><br>
+            <input type="text" id="num_courses" name="num_courses" onchange="addCourse()" required><br>
+            <div id="course_details"></div>
+            <input type="submit" value="Calculate CGPA">
+        </form>
+        {% if error_message %}
+            <p class="error-message">{{ error_message }}</p>
+        {% endif %}
+    </div>
+    <div class="footer">
+        Created by Anush Dubey
+    </div>
+    {% if new_cgpa %}
+        <div class="result-container">
+            <p>Your new CGPA is: {{ new_cgpa }}</p>
+            <p>Summary of Input:</p>
+            <ul>
+                <li>Current CGPA: {{ data['current_cgpa'] }}</li>
+                <li>Total Credits Completed: {{ data['total_credits_completed'] }}</li>
+                <li>Total Credits Required: {{ data['total_credits_required'] }}</li>
+                <li>Number of Courses: {{ data['num_courses'] }}</li>
+            </ul>
+            <a href="/">Back to Calculator</a>
+        </div>
+    {% endif %}
+</body>
+</html>
